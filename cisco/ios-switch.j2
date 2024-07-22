@@ -1,0 +1,29 @@
+{# These are configurations meant for all IOS/XE SWITCHES #}
+{% include 'ios-base.j2' %}
+vlan 123
+ name switch-vlan
+{% if 'Access-Switch' in device.device_roles[0] %}
+device-sensor filter-list cdp list cdp-list-01
+ tlv name device-name
+ tlv name address-type
+ tlv name capabilities-type
+ tlv name platform-type
+ tlv name version-type
+device-sensor filter-list lldp list lldp-list-01
+ tlv name port-id
+ tlv name system-name
+ tlv name system-description
+ tlv name system-capabilities
+device-sensor filter-list dhcp list dhcp-list-01
+ option name host-name
+ option name default-ip-ttl
+ option name requested-address
+ option name parameter-request-list
+ option name class-identifier
+ option name client-identifier
+device-sensor filter-spec dhcp include list dhcp-list-01
+device-sensor filter-spec lldp include list lldp-list-01
+device-sensor filter-spec cdp include list cdp-list-01
+device-sensor notify all-changes
+{% endif %}
+{# End #}

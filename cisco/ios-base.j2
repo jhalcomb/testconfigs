@@ -1,0 +1,32 @@
+{# These are configurations that should be present on every single IOS/XE device #}
+{# System #}
+no service pad
+service tcp-keepalives-in
+service tcp-keepalives-out
+service password-encryption
+service sequence-numbers
+no platform punt-keepalive disable-kernel-core
+hostname {{ device.name }}
+{# Logging #}
+service timestamps debug datetime localtime 
+service timestamps log datetime msec localtime show-timezone
+logging buffered 64000
+logging console critical
+logging trap informational
+logging userinfo
+no logging monitor
+logging origin-id ip
+logging host 1.2.3.4 transport udp port 5140
+login on-failure log
+login on-success log
+ip ssh logging events
+ntp logging
+epm logging
+spanning-tree logging
+archive 
+ log config 
+ logging enable 
+ logging size 200 
+ notify syslog contenttype plaintext 
+ hidekeys
+{# End #}
