@@ -2,7 +2,7 @@
 {% include 'cisco/ios-base.j2' %}
 vlan 123
  name switch-vlan
-{% if 'Access-Switch' in device.device_roles[0] %}
+{% if 'Access-Switch' in device.role.name %}
 device-sensor filter-list cdp list cdp-list-01
  tlv name device-name
  tlv name address-type
