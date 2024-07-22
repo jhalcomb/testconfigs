@@ -6,7 +6,11 @@ service tcp-keepalives-out
 service password-encryption
 service sequence-numbers
 no platform punt-keepalive disable-kernel-core
+{% if device.virtual_chassis is defined %}
+hostname {{ device.virtual_chassis.name }}
+{% else %}
 hostname {{ device.name }}
+{% endif %}
 {# Logging #}
 service timestamps debug datetime localtime 
 service timestamps log datetime msec localtime show-timezone
